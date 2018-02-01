@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
+movie_name = ARGV.first
 def movies(name)
   case name
   when 'Titanic'
-    print 'Titanic is a good movie'
+    'Titanic is a good movie'
   when 'Elki'
-    print 'Elki is a bad movie'
+    'Elki is a bad movie'
   else
-    print "Haven\'t seen #{name} yet"
+    "Haven\'t seen #{name} yet"
   end
 end
 
-puts movies ARGV[0].to_s
+puts movies movie_name
