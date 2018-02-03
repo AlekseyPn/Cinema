@@ -1,24 +1,15 @@
 # frozen_string_literal: true
 
-# movie_name = ARGV.first
-# def movies(name)
-#   case name
-#   when 'Titanic'
-#     'Titanic is a good movie'
-#   when 'Elki'
-#     'Elki is a bad movie'
-#   else
-#     "Haven\'t seen #{name} yet"
-#   end
-# end
-
-# puts movies movie_name
 movies_names = ARGV
-
-def favourite_movies(names)
-  names.each do |movie|
-    if ['Avengers', 'Galaxy guardians', 'Iron Man'].include?(movie)
-      puts "#{movie}. Oh it's my favourite film"
+FAVOURITE_MOVIES = [
+  ['Avengers', 'Galaxy guardians', 'Iron Man'],
+  ['Awesome film', 'Great Film', 'Iron film']
+].freeze
+def favourite_movies(movies_names)
+  favourite_movies_description = Hash[*FAVOURITE_MOVIES.transpose.flatten]
+  movies_names.each do |movie|
+    if !favourite_movies_description[movie].nil?
+      puts "#{movie}. #{favourite_movies_description[movie]}"
     else
       puts "#{movie}. What? No, it's not my favourite film!"
     end
