@@ -13,5 +13,4 @@ def favourite_movies(movies_names)
     end
   end
 end
-
-puts favourite_movies movies_names
+favourite_movies movies_names
