@@ -3,9 +3,10 @@
 movies_names = ARGV
 KNOWN_MOVIES = ['Avengers', 'Galaxy guardians', 'Iron Man'].freeze
 def check_movie_description(movie)
-  if movie == 'Elki'
+  case movie
+  when 'Elki'
     'Elki is a bad movie'
-  elsif KNOWN_MOVIES.include?(movie)
+  when KNOWN_MOVIES.find{ |m| m == movie }
     "#{movie} is a good movie"
   else
     "Haven't seen #{movie} yet"
