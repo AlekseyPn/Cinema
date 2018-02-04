@@ -25,6 +25,7 @@ def get_rating_value(rating)
 end
 
 def init_filtered_top(file)
+  puts "Movies file: #{MOVIES_FILE_PATH}"
   get_movies_list(file)
     .map { |movie| get_movie_description movie }
     .select { |movie| movie['title'].include?(FILTERED_WORD) }
