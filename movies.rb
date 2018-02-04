@@ -6,7 +6,7 @@ def check_movie_description(movie)
   case movie
   when 'Elki'
     'Elki is a bad movie'
-  when KNOWN_MOVIES.find{ |m| m == movie }
+  when KNOWN_MOVIES.find{ |known_movie| known_movie == movie }
     "#{movie} is a good movie"
   else
     "Haven't seen #{movie} yet"
