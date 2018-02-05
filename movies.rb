@@ -4,36 +4,36 @@
 MOVIES_DESCRIPTION_KEYS = %w[url title year_of_release country date genre timing rating producer actors].freeze
 RATING_START_POINT = 8.0
 FILTERED_WORD = 'Max'
-def get_movies_top(path)
+def read_movies_list(path)
   File.read(path)
 end
 
-def get_file_name(path)
+def read_filename(path)
   File.basename(path)
 end
 
-def get_movies_list(file)
+def map_movies_lines(file)
   file.lines.to_a.map { |line| line.split('|') }
 end
 
-def get_movie_description(movie)
+def parse_movie_description(movie)
   Hash[*[MOVIES_DESCRIPTION_KEYS, movie].transpose.flatten]
 end
 
-def get_rating_stars(rating)
+def check_stars_by_rating(rating)
   '*' * ((rating.to_f - RATING_START_POINT) * 10)
 end
 
 def update_rating_value(movie)
   movie.update('rating' => movie['rating']) do |_key, _old, new|
-    get_rating_stars new
+    check_stars_by_rating new
   end
 end
 
-def init_filtered_top(file)
-  puts "Movies file: #{@movies_file_path}"
-  get_movies_list(file)
-    .map { |movie| get_movie_description movie }
+def show_movies_by_filter(file)
+  puts "Movies file: #{read_filename @movies_file_path}"
+  map_movies_lines(file)
+    .map { |movie| parse_movie_description movie }
     .select { |movie| movie['title'].include?(FILTERED_WORD) }
     .each do |movie|
       update_rating_value movie
@@ -41,4 +41,4 @@ def init_filtered_top(file)
     end
 end
 
-init_filtered_top get_movies_top @movies_file_path
+show_movies_by_filter read_movies_list @movies_file_path
