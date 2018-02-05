@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-MOVIES_FILE_PATH = ARGV.first || './movies.txt'
+@movies_file_path = ARGV.first || './movies.txt'
 MOVIES_DESCRIPTION_KEYS = %w[url title year_of_release country date genre timing rating producer actors].freeze
 RATING_START_POINT = 8.0
 FILTERED_WORD = 'Max'
@@ -20,19 +20,25 @@ def get_movie_description(movie)
   Hash[*[MOVIES_DESCRIPTION_KEYS, movie].transpose.flatten]
 end
 
-def get_rating_value(rating)
+def get_rating_stars(rating)
   '*' * ((rating.to_f - RATING_START_POINT) * 10)
 end
 
+def update_rating_value(movie)
+  movie.update('rating' => movie['rating']) do |_key, _old, new|
+    get_rating_stars new
+  end
+end
+
 def init_filtered_top(file)
-  puts "Movies file: #{MOVIES_FILE_PATH}"
+  puts "Movies file: #{@movies_file_path}"
   get_movies_list(file)
     .map { |movie| get_movie_description movie }
     .select { |movie| movie['title'].include?(FILTERED_WORD) }
     .each do |movie|
-      movie.update('rating' => movie['rating']) { |_key, _old, new| get_rating_value new }
+      update_rating_value movie
       puts "Movie: #{movie['title']}]\nRating: #{movie['rating']}"
     end
 end
 
-init_filtered_top get_movies_top MOVIES_FILE_PATH
+init_filtered_top get_movies_top @movies_file_path
