@@ -32,7 +32,7 @@ end
 
 def show_movies_of_file(file)
   puts "Movies file: #{read_filename @movies_file_path}"
-  map_movies_lines(file)
+  get_movies_description(file)
     .map { |movie| parse_movie_description movie }
     .select { |movie| movie['title'].include?(FILTERED_WORD) }
     .each do |movie|
