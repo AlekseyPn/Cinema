@@ -16,7 +16,7 @@ def get_movies_description(file)
   file.lines.to_a.map { |line| line.split('|') }
 end
 
-def parse_movie_description(movie)
+def description_for_movie(movie)
   Hash[*[MOVIES_DESCRIPTION_KEYS, movie].transpose.flatten]
 end
 
@@ -33,7 +33,7 @@ end
 def show_movies_of_file(file)
   puts "Movies file: #{read_filename @movies_file_path}"
   get_movies_description(file)
-    .map { |movie| parse_movie_description movie }
+    .map { |movie| description_for_movie movie }
     .select { |movie| movie['title'].include?(FILTERED_WORD) }
     .each do |movie|
       update_rating_value movie
