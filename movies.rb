@@ -80,12 +80,11 @@ def show_producers(movies)
     end
 end
 
-def show_movies_of_file(movies)
-  movies = get_movies_description(movies)
-           .map { |movie| description_for_movie movie }
-  show_most_long_movies movies
-  show_first_ten_comedies movies
-  quantity_not_american_movies movies
+def get_movies_of_file(movies)
+  get_movies_description(movies)
+    .map { |movie| description_for_movie movie }
 end
-
-show_movies_of_file movies_list @movies_file_path
+movies = get_movies_of_file movies_list @movies_file_path
+show_most_long_movies movies
+show_first_ten_comedies movies
+quantity_not_american_movies movies
