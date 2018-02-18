@@ -43,41 +43,38 @@ end
 
 def producer_names(movies)
   movies.map { |movie| movie[:producer] }
-        .sort_by { |producer| producer.split.last[0] }
+        .sort_by { |producer| producer.split.last.chr }
         .uniq
 end
 
 def quantity_not_american_movies(movies)
-  puts 'Quantity movies filmed not in the USA:'
-  puts movies.count { |movie| movie[:country] != COUNTRY_FILTER_WORD }
+  movies_quantity = movies.count do |movie|
+    movie[:country] != COUNTRY_FILTER_WORD
+  end
+  puts "Quantity movies filmed not in the USA: #{movies_quantity}"
 end
 
 def get_movie_info(movie)
-  "#{movie[:title]}(#{movie[:date]}; #{movie[:genre].tr(',', '/')}) - #{movie[:timing]}"
+  genre_with_divider = movie[:genre].tr(',', '/')
+  "#{movie[:title]}(#{movie[:date]}; #{genre_with_divider}) - #{movie[:timing]}"
 end
 
 def show_movies_info(movies)
-  movies.each do |movie|
-    puts get_movie_info movie
-  end
+  movies
+    .map { |movie| get_movie_info movie }
+    .join("\n")
 end
 
 def show_most_long_movies(movies)
-  puts 'Five most long movies from top:'
-  show_movies_info get_most_long_movies movies
+  puts "Five most long movies from top:\n #{show_movies_info get_most_long_movies movies}"
 end
 
 def show_first_ten_comedies(movies)
-  puts 'First ten comedies by year:'
-  show_movies_info first_ten_comedies movies
+  puts "First ten comedies by year:\n #{show_movies_info first_ten_comedies movies}"
 end
 
 def show_producers(movies)
-  puts 'Producers filtered by alphabet:'
-  producer_names(movies)
-    .each do |producer|
-      puts producer
-    end
+  puts "Producers filtered by alphabet: #{producer_names(movies).join("\n")}"
 end
 
 def get_movies_of_file(movies)
@@ -87,4 +84,5 @@ end
 movies = get_movies_of_file movies_list @movies_file_path
 show_most_long_movies movies
 show_first_ten_comedies movies
+show_producers movies
 quantity_not_american_movies movies
