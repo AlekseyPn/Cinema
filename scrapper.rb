@@ -2,7 +2,6 @@
 
 require 'open-uri'
 require 'nokogiri'
-MOVIES_DESCRIPTION_KEYS = %i[url title year country date genre timing rating producer actors].freeze
 COUNTRY = 'Country:'
 TOP_URL = 'http://www.imdb.com/chart/top'
 FILE_NAME = 'test.txt'
@@ -13,12 +12,12 @@ def get_movie_details(link)
   title = movie_page.at_css('h1').children.first.text
   year = movie_page.at_css('#titleYear a').text
   date = movie_page.at_css('[itemprop="datePublished"]')['content']
-  genre = get_genre movie_page.css('.subtext span[itemprop="genre"]')
-  country = get_country movie_page.css('#titleDetails h4')
-  runtime = get_runtime movie_page.at_css('[itemprop="duration"]')
+  genre = movie_page.css('.subtext span[itemprop="genre"]').map(&:text).join(',')
+  country = movie_page.css('#titleDetails h4').select { |block| block.text == 'Country:' }.first.next_element.text
+  runtime = "#{movie_page.at_css('[itemprop="duration"]')['datetime'].gsub(/[A-z]/, '')} min"
   rating = movie_page.at_css('[itemprop="ratingValue"]').text.strip
+  actors = movie_page.css('[itemprop="actors"] [itemprop="name"]').map(&:text).join(', ').strip
   director = movie_page.at_css('[itemprop="director"]').text.strip
-  actors = get_actors movie_page.css('[itemprop="actors"] [itemprop="name"]')
   [movie_url, title, year, country, date, genre, runtime, rating, director, actors]
 end
 
@@ -31,28 +30,8 @@ def short_url(url)
   url.split('/?').inject { |left, right| "#{left}/?#{right.split('&').last}" }
 end
 
-def get_elements_by_selector(page, selector)
-  page.css(selector)
-end
-
-def get_genre(genres)
-  genres.map(&:text).join(',')
-end
-
-def get_country(elements)
-  elements.select { |block| block.text == 'Country:' }.first.next_element.text
-end
-
-def get_actors(elements)
-  elements.map(&:text).join(', ').strip
-end
-
 def get_page(url)
   Nokogiri::HTML(open(url))
-end
-
-def get_runtime(element)
-  "#{element['datetime'].gsub(/[A-z]/, '')} min"
 end
 
 def rating_links(page)
