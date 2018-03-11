@@ -31,7 +31,7 @@ class MoviesCollection
       .each_with_object(Hash.new(0)) { |item, obj| obj[item] += 1 }
   end
 
-  def check_genre?(genre)
+  def contains_genre?(genre)
     collection_by_key(genre)
       .uniq
       .include?(genre)
