@@ -2,7 +2,7 @@
 
 require 'csv'
 require 'ostruct'
-require './movie.rb'
+require_relative 'movie.rb'
 MOVIES_DESCRIPTION_KEYS = %i[url title year country date genre runtime rating producer actors].freeze
 
 #
@@ -32,7 +32,7 @@ class MoviesCollection
   end
 
   def contains_genre?(genre)
-    collection_by_key(genre)
+    collection_by_key(:genre)
       .uniq
       .include?(genre)
   end
