@@ -11,7 +11,7 @@ class Movie
     @title = movie.title
     @year = movie.year
     @country = movie.country
-    @date = has_day?(movie.date)
+    @date = day?(movie.date)
     @genre = movie.genre
     @runtime = movie.runtime
     @rating = movie.rating
@@ -20,12 +20,12 @@ class Movie
     @movie_collection = collection
   end
 
-  def has_genre?(genre)
+  def genre?(genre)
     raise ArgumentError, 'The movies collection does\'nt have genre' unless @movie_collection.contains_genre?(genre)
     @genre.casecmp(genre)
   end
 
-  def has_day?(date)
+  def day?(date)
     date_ary = date.split('-')
     if date_ary.length.eql?(DATE_LENGTH)
       date
@@ -37,7 +37,7 @@ class Movie
   def match_filter?(filter)
     filter.all? do |filter_key, filter_value|
       value_by_key = send(filter_key).split(',')
-      value_by_key.any? { |value| value.eql?(filter_value) } 
+      value_by_key.any? { |value| value.eql?(filter_value) }
     end
   end
 

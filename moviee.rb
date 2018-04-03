@@ -20,12 +20,12 @@ class Moviee
     @movies_collection = collection
   end
 
-  # def has_genre?(genre)
-  #   raise ArgumentError, 'The movies collection does\'nt have genre' unless @movie_collection.contains_genre?(genre)
-  #   @genre.casecmp(genre)
-  # end
+  def has_genre?(genre)
+    raise ArgumentError, 'The movies collection does\'nt have genre' unless @movie_collection.contains_genre?(genre)
+    @genre.casecmp(genre)
+  end
 
-  def has_day?(date)    
+  def has_day?(date)
     date_ary = date.split('-')
     if date_ary.length.eql?(DATE_LENGTHH)
       date

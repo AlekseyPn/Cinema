@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require 'factory_bot'
-require 'ffaker'
-require 'ostruct'
-
-FactoryBot.define do  
-  factory :moviee do
+FactoryBot.define do
+  factory :movies_collection do
+    initialize_with { new('./spec/spec.movies.txt') }
+  end
+  factory :movie do
     url { FFaker::Internet.http_url }
     title { FFaker::Movie.title }
     year { FFaker::Vehicle.year }
@@ -15,7 +14,7 @@ FactoryBot.define do
     runtime '143min'
     rating '8.3'
     producer { FFaker::Name.name }
-    actors { FFaker::Name.name }    
-    initialize_with { new(OpenStruct.new(attributes), Array.new()) }
+    actors { FFaker::Name.name }
+    initialize_with { new(OpenStruct.new(attributes), build(:movies_collection)) }
   end
 end
