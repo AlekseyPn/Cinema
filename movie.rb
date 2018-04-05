@@ -34,8 +34,9 @@ class Movie
 
   def match_filter?(filter)
     filter.all? do |filter_key, filter_value|
-      value_by_key = send(filter_key).split(',')
-      value_by_key.any? { |value| value.eql?(filter_value) }
+      send(filter_key)
+        .split(',')
+        .any? { |value| value.eql?(filter_value) }
     end
   end
 
