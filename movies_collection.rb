@@ -28,7 +28,7 @@ class MoviesCollection
 
   def stats(key_for_stats)
     collection_by_key(key_for_stats)
-      .each_with_object(Hash.new(0)) { |item, obj| obj[item] += 1 }
+      .each_with_object(Hash.new(0)) { |item, obj| obj[:"#{item}"] += 1 }
   end
 
   def contains_genre?(genre)

@@ -7,4 +7,3 @@ require './spec/factories.rb'
 
 require './movies_collection.rb'
 require './movie.rb'
-require './moviee.rb'

@@ -6,6 +6,7 @@ DATE_LENGTH = 3
 # for create movie
 class Movie
   attr_reader :url, :title, :year, :country, :date, :genre, :runtime, :rating, :producer, :actors
+
   def initialize(movie, collection)
     @url = movie.url
     @title = movie.title
@@ -26,12 +27,9 @@ class Movie
   end
 
   def day?(date)
-    date_ary = date.split('-')
-    if date_ary.length.eql?(DATE_LENGTH)
-      date
-    else
-      date_ary.push('01').join('-')
-    end
+    date_parts = date.split('-')
+    date_parts.push('01') if date_parts.length != DATE_LENGTH
+    date_parts.join('-')
   end
 
   def match_filter?(filter)

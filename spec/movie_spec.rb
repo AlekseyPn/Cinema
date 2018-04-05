@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Movie do  
+RSpec.describe Movie do
   let(:movie) { FactoryBot.build(:movie) }
   describe '#init' do
     it 'initialize movie model' do
@@ -8,9 +8,11 @@ RSpec.describe Movie do
     end
   end
   describe '#genre?' do
-    it 'exist genre of the movie' do 
+    it 'exist genre of the movie' do
       expect(movie.genre?('Comedy')).to be_truthy
+    end
+    it 'genre not exist of the movie' do
       expect { movie.genre?('nonExistentGenre') }.to raise_error(ArgumentError)
     end
-  end    
+  end
 end
