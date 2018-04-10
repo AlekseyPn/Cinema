@@ -10,7 +10,7 @@ class Movie
   def initialize(movie, collection)
     @url = movie.url
     @title = movie.title
-    @year = movie.year
+    @year = movie.year.to_i
     @country = movie.country
     @date = day?(movie.date)
     @genre = movie.genre
@@ -29,7 +29,7 @@ class Movie
   def day?(date)
     date_parts = date.split('-')
     date_parts.push('01') if date_parts.length != DATE_LENGTH
-    date_parts.join('-')
+    Date.parse(date_parts.join('-'))
   end
 
   def match_filter?(filter)
