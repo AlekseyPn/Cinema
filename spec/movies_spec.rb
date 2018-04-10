@@ -13,8 +13,9 @@ RSpec.describe MoviesCollection do
     end
   end
   describe '#sort_by' do
-    it 'sort by year' do
-      expect(movies.sort_by(:date).last.date).to eql('2013-12-25')
+    it 'sort by date' do
+      expect(movies.sort_by(:date).last.date.strftime('%Y-%m-%d')).to eql('2013-12-25')
+      expect(movies.sort_by(:date).first.date.strftime('%Y-%m-%d')).to eql('1948-01-24')
     end
   end
   describe '#stats' do
