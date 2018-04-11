@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-require 'csv'
-require 'ostruct'
-require_relative 'movie.rb'
-MOVIES_DESCRIPTION_KEYS = %i[url title year country date genre runtime rating producer actors].freeze
-
 #
 class MoviesCollection
+  
+  require 'csv'
+  require 'ostruct'
+  require_relative 'movie.rb'
+
+  MOVIES_DESCRIPTION_KEYS = %i[url title year country date genre runtime rating producer actors].freeze
+
   def initialize(file_name)
     @model = Movie
     @collection = get_movies_description movies_list file_name
@@ -48,7 +50,7 @@ class MoviesCollection
   end
 
   def get_movies_description(movies)
-    movies.map { |movie| @model.new(description_for_movie(movie), self) }
+    movies.map { |movie| @model.create(description_for_movie(movie), self) }
   end
 
   def count_by_key(key_for_count, current_movie)

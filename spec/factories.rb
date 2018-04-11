@@ -4,10 +4,13 @@ FactoryBot.define do
   factory :movies_collection do
     initialize_with { new('./spec/spec.movies.txt') }
   end
+  factory :netflix do
+    initialize_with { new('./spec/spec.movies.txt') }
+  end
   factory :movie do
     url { FFaker::Internet.http_url }
     title { FFaker::Movie.title }
-    year { FFaker::Vehicle.year }
+    year { 1998 }
     country { FFaker::Address.country }
     date { FFaker::IdentificationESCO.expedition_date.strftime('%Y-%m-%d') }
     genre { %w[Comedy Triller Horror Anime Drama].sample }
