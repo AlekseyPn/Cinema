@@ -7,6 +7,9 @@ FactoryBot.define do
   factory :netflix do
     initialize_with { new('./spec/spec.movies.txt') }
   end
+  factory :theatre do
+    initialize_with { new('./spec/spec.movies.txt') }
+  end
   factory :movie do
     url { FFaker::Internet.http_url }
     title { FFaker::Movie.title }

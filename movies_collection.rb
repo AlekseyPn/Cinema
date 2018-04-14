@@ -63,4 +63,15 @@ class MoviesCollection
     @collection.collect { |movie| movie.send(key).split(',') }
                .flatten
   end
+
+  def write_description(movie)
+    current_date = DateTime.now
+    current_time = current_date.strftime('%H:%M:%S')
+    "Now showing: #{movie.title} #{current_time} - #{end_time(current_date, movie)}"
+  end
+
+  def end_time(current_date, movie)
+    runtime = movie.runtime.scan(/\d/).join.to_f
+    (current_date + (runtime / (24 * 60))).strftime('%H:%M:%S')
+  end
 end

@@ -46,11 +46,14 @@ class Movie
   def match_filter?(filter)
     filter.all? do |filter_key, filter_value|
       value = send(filter_key)
+      puts value
       if filter_key.to_s == 'period'
         value.eql?(filter_value)
       else
         value.split(',')
-             .any? { |item| item.eql?(filter_value) }
+             .any? do |item|
+               filter_value.is_a?(Array) ? filter_value.include?(item) : item.eql?(filter_value)
+             end
       end
     end
   end

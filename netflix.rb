@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'movies_collection.rb'
-
+require 'date'
 # Netflix onlain cinema
 class Netflix < MoviesCollection
   def initialize(path)
@@ -16,7 +16,7 @@ class Netflix < MoviesCollection
     raise ArgumentError, 'Film not found' unless movie
     raise ArgumentError, 'Need more gold' if @deposit < movie.cost
     @deposit -= movie.cost
-    "Now showing: #{movie.title} some period"
+    write_description(movie)
   end
 
   def pay(cash)

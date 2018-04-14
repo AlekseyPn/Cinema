@@ -9,7 +9,9 @@ gem 'nokogiri', '~> 1.8'
 
 gem 'rspec', '~> 3.0'
 
-gem "factory_bot", '~> 4.8.2'
+gem 'factory_bot', '~> 4.8.2'
 
-gem "ffaker", '~> 2.8.1'
+gem 'ffaker', '~> 2.8.1'
+
+gem 'solargraph', '~> 0.18.3'
 
