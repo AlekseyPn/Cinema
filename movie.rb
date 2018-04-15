@@ -21,7 +21,7 @@ class Movie
   def initialize(movie, collection)
     @url = movie.url
     @title = movie.title
-    @year = movie.year.to_i
+    @year = movie.year
     @country = movie.country
     @date = day?(movie.date)
     @genre = movie.genre
@@ -46,7 +46,6 @@ class Movie
   def match_filter?(filter)
     filter.all? do |filter_key, filter_value|
       value = send(filter_key)
-      puts value
       if filter_key.to_s == 'period'
         value.eql?(filter_value)
       else
@@ -63,8 +62,7 @@ class Movie
     raise ArgumentError, 'Imposible to determine period' unless movie_class
     movie_class.new(movie, collection)
   end
-
-  # TODO: Для каждого периода нужно свое описание к фильму
+  
   def to_s
     "Title: #{@title}, Date: #{@date.mday} #{@date.mon} #{@date.year}, producer: #{@producer}, actors: #{@actors}, genre: #{@genre}"
   end

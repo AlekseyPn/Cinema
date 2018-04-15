@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe MoviesCollection do
-  let!(:movies) { FactoryBot.build(:movies_collection) }
+RSpec.describe MovieCollection do
+  let!(:movies) { FactoryBot.build(:movie_collection) }
   describe '#all' do
     it 'return all movies' do
       expect(movies.all).not_to be_empty
@@ -14,8 +14,7 @@ RSpec.describe MoviesCollection do
   end
   describe '#sort_by' do
     it 'sort by date' do
-      expect(movies.sort_by(:date).last.date.strftime('%Y-%m-%d')).to eql('2013-12-25')
-      expect(movies.sort_by(:date).first.date.strftime('%Y-%m-%d')).to eql('1948-01-24')
+      expect(movies.sort_by(:date).first.date.strftime('%Y-%m-%d')).to eql('1939-08-25')
     end
   end
   describe '#stats' do
@@ -28,9 +27,12 @@ RSpec.describe MoviesCollection do
         'David Lynch': 1,
         'Martin Scorsese': 2,
         'Hayao Miyazaki': 1,
+        'John Carpenter': 1,
         "Gavin O\'Connor": 1,
         'Clint Eastwood': 1,
-        'James McTeigue': 1
+        'Henri-Georges Clouzot': 1,
+        'James McTeigue': 1,
+        'Victor Fleming': 1
       )
     end
   end

@@ -12,4 +12,8 @@ class AncientMovie < Movie
   def cost
     1
   end
+
+  def to_s
+    "#{@title} is old movie (#{@year})"
+  end
 end

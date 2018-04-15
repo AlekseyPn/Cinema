@@ -12,4 +12,8 @@ class ModernMovie < Movie
   def cost
     3
   end
+
+  def to_s
+    "#{@title} is moder movie: actors #{@actors}"
+  end
 end

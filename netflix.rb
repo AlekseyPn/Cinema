@@ -3,7 +3,7 @@
 require_relative 'movies_collection.rb'
 require 'date'
 # Netflix onlain cinema
-class Netflix < MoviesCollection
+class Netflix < MovieCollection
   def initialize(path)
     super(path)
     @deposit = 0

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-#
-class MoviesCollection
-  
+class MovieCollection
   require 'csv'
   require 'ostruct'
   require_relative 'movie.rb'
