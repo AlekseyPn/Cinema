@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :movies_collection do
+  factory :movie_collection do
+    initialize_with { new('./spec/spec.movies.txt') }
+  end
+  factory :netflix do
+    initialize_with { new('./spec/spec.movies.txt') }
+  end
+  factory :theatre do
     initialize_with { new('./spec/spec.movies.txt') }
   end
   factory :movie do
@@ -15,6 +21,6 @@ FactoryBot.define do
     rating '8.3'
     producer { FFaker::Name.name }
     actors { FFaker::Name.name }
-    initialize_with { new(OpenStruct.new(attributes), build(:movies_collection)) }
+    initialize_with { new(OpenStruct.new(attributes), build(:movie_collection)) }
   end
 end

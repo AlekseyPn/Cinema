@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'csv'
-require 'ostruct'
-require_relative 'movie.rb'
-MOVIES_DESCRIPTION_KEYS = %i[url title year country date genre runtime rating producer actors].freeze
+class MovieCollection
+  require 'csv'
+  require 'ostruct'
+  require_relative 'movie.rb'
 
-#
-class MoviesCollection
+  MOVIES_DESCRIPTION_KEYS = %i[url title year country date genre runtime rating producer actors].freeze
+
   def initialize(file_name)
     @model = Movie
     @collection = get_movies_description movies_list file_name
@@ -48,7 +48,7 @@ class MoviesCollection
   end
 
   def get_movies_description(movies)
-    movies.map { |movie| @model.new(description_for_movie(movie), self) }
+    movies.map { |movie| @model.create(description_for_movie(movie), self) }
   end
 
   def count_by_key(key_for_count, current_movie)
@@ -60,5 +60,16 @@ class MoviesCollection
   def collection_by_key(key)
     @collection.collect { |movie| movie.send(key).split(',') }
                .flatten
+  end
+
+  def write_description(movie)
+    current_date = DateTime.now
+    current_time = current_date.strftime('%H:%M:%S')
+    "Now showing: #{movie.title} #{current_time} - #{end_time(current_date, movie)}"
+  end
+
+  def end_time(current_date, movie)
+    runtime = movie.runtime.scan(/\d/).join.to_f
+    (current_date + (runtime / (24 * 60))).strftime('%H:%M:%S')
   end
 end
